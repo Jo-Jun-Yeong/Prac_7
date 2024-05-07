@@ -1,19 +1,18 @@
 package com.example.mini_Cimmute.question4.Service;
 
 import com.example.mini_Cimmute.question4.Repository.FruitJdbcRepository;
-import com.example.mini_Cimmute.question4.dto.Fruit;
-import com.example.mini_Cimmute.question4.dto.FruitResponse;
 import com.example.mini_Cimmute.question4.dto.FruitAmount;
-import com.example.mini_Cimmute.request.FruitSaveRequest;
-import com.example.mini_Cimmute.request.FruitUpdate_Is_Sale;
+import com.example.mini_Cimmute.question4.dto.FruitResponse;
+import com.example.mini_Cimmute.question4.request.FruitSaveRequest;
+import com.example.mini_Cimmute.question4.request.FruitUpdate_Is_Sale;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class FruitService {
+public class FruitServiceV1 {
     private final FruitJdbcRepository fruitJdbcRepository;
 
-    public FruitService(FruitJdbcRepository fruitRepository) {
+    public FruitServiceV1(FruitJdbcRepository fruitRepository) {
         this.fruitJdbcRepository=fruitRepository;
     }
     public List<FruitResponse> FruitGet(){
@@ -34,6 +33,6 @@ public class FruitService {
         fruitJdbcRepository.Fruitis_sale(request.isIs_sale());
     }
     public List<FruitAmount> FT(String request){
-        return fruitJdbcRepository.FruitTest(request);
+        return fruitJdbcRepository.FruitAmount(request);
     }
 }

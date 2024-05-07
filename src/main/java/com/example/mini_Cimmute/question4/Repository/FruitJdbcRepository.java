@@ -1,22 +1,16 @@
 package com.example.mini_Cimmute.question4.Repository;
 
-import com.example.mini_Cimmute.question4.dto.Fruit;
-import com.example.mini_Cimmute.question4.dto.FruitResponse;
+import com.example.mini_Cimmute.question4.domain.Fruit;
 import com.example.mini_Cimmute.question4.dto.FruitAmount;
-import org.springframework.context.annotation.Primary;
+import com.example.mini_Cimmute.question4.dto.FruitResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
-@Primary
 @Repository
-public class FruitJdbcRepository implements FruitRepository {
+public class FruitJdbcRepository {
     JdbcTemplate jdbcTemplate = new JdbcTemplate();
 
     public FruitJdbcRepository(JdbcTemplate jdbcTemplate) {
@@ -35,10 +29,10 @@ public class FruitJdbcRepository implements FruitRepository {
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             long id = rs.getLong("id");
             String name = rs.getString("name");
-            String warehousingDate = rs.getString("warehousingDate");
+            LocalDate warehousingDate = rs.getDate("warehousingDate").toLocalDate();
             long price = rs.getLong("price");
             boolean is_sale = rs.getBoolean("is_sale");
-            return new FruitResponse(new Fruit(id, name, price), LocalDate.parse(warehousingDate), is_sale);
+            return new FruitResponse(new Fruit(id, name, warehousingDate, price,is_sale ));
         });
     }
 
@@ -54,7 +48,7 @@ public class FruitJdbcRepository implements FruitRepository {
 
     ////////////////////////////////////////////////////
     //문제점 인수를 받아 select하는 방법에서 막힘
-    public List<FruitAmount> FruitTest(String name){
+    public List<FruitAmount> FruitAmount(String name){
         String sql = "select " +
                 " sum(case when is_sale = 0 then price else 0 end) as notSalesAmount," +
                 " sum(case when is_sale = 1 then price else 0 end) as salesAMount" +
