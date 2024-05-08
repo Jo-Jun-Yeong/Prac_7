@@ -1,14 +1,13 @@
 package com.example.mini_Cimmute.question4.Controller;
 
 import com.example.mini_Cimmute.question4.Service.FruitServiceV2;
+import com.example.mini_Cimmute.question4.dto.FruitCount;
 import com.example.mini_Cimmute.question4.dto.FruitResponse;
+import com.example.mini_Cimmute.question4.request.FruitSaveRequest;
 import com.example.mini_Cimmute.question4.request.FruitUpdate_Is_Sale;
 import com.example.mini_Cimmute.question4.request.Fruit_Delete;
 import com.example.mini_Cimmute.question4.request.Fruit_Is_Sale;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,10 +25,10 @@ public class FruitController {
     }
 
 
-//    @PostMapping("/api/v1/fruit")//body-name,warehousingDate,price
-//    public void saveFruit(@RequestBody FruitSaveRequest request) { //과일 저장
-//        fruitService.FruitSave(request);
-//    }
+    @PostMapping("/api/v1/fruit")//body-name,warehousingDate,price
+    public void saveFruit(@RequestBody FruitSaveRequest request) { //과일 저장
+        fruitService2.FruitsSave(request);
+    }
 
     @GetMapping("/api/v1/fruit")
     public List<FruitResponse> getFruit() {
@@ -54,5 +53,10 @@ public class FruitController {
     @PutMapping("/api/v1/fruit/sale")
     public void Fruit_Sale(FruitUpdate_Is_Sale request){
         fruitService2.Fruit_Sale(request);
+    }
+
+    @GetMapping("/api/v1/fruit/count")
+    public FruitCount Fruit_count(@RequestParam String name){
+        return fruitService2.Fruit_Count(name);
     }
 }

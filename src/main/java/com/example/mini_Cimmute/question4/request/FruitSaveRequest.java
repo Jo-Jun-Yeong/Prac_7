@@ -10,6 +10,7 @@ public class FruitSaveRequest {
     private LocalDate warehousingDate;
     private long price;
 
+    private boolean is_sale;
     public String getName() {
         return name;
     }
@@ -26,12 +27,14 @@ public class FruitSaveRequest {
         return id;
     }
 
-    public FruitSaveRequest(Fruit fruit, LocalDate warehousingDate) {
-        this.id= fruit.getId();
+    public boolean isIs_sale() {
+        return is_sale;
+    }
+
+    public FruitSaveRequest(Fruit fruit) {
         this.name = fruit.getName();
         this.price = fruit.getPrice();
-        this.warehousingDate = warehousingDate;
-
+        this.warehousingDate = fruit.getWarehousing_date();
     }
     protected FruitSaveRequest(){
 
